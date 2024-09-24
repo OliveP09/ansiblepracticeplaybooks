@@ -1,0 +1,9 @@
+---
+- name: This will create a new file
+  hosts: all
+  become: True
+  tasks:
+    - name: I will create a file
+      file:
+        path: /home/ansadmin/Demo
+        state: touch

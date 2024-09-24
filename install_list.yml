@@ -1,0 +1,20 @@
+---
+- name: Installs Multiple packages
+  hosts: all
+  become: true
+  tasks:
+    - name: Installs multiple packages
+      yum:
+        name: ["git","tree","docker"]
+
+    - name: Creates multiple users
+      user:
+        name: '{{ item }}'
+        state: present
+      with_items: 
+        - user1
+        - user2
+        - user3
+
+...
+

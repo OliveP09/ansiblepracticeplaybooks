@@ -1,0 +1,39 @@
+---
+- name: We will Install Tomcat and its dependencies
+  hosts: all
+  become: true
+  tasks:
+    - name: Installing Java as the OS is from Redhat Family
+      yum:
+        name: java
+        state: installed
+      when: ansible_os_family == "RedHat"
+
+    - name: Installing JDK as the OS is from Debian Family
+      apt:
+        name: default-jdk
+        state: installed
+      when: ansible_os_family == "Debian"
+
+    - name: Download Tomcat Package
+      get_url:
+        url: https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.30/bin/apache-tomcat-10.1.30.tar.gz
+        dest: /opt/
+
+    - name: Extract Tomcat Package
+      unarchive:
+        src: /opt/apache-tomcat-10.1.30.tar.gz
+        dest: /opt/
+        remote_src: yes
+
+    - name: Add execution permissions on startup.sh file
+      file:
+       path: /opt/apache-tomcat-10.1.30/bin/startup.sh
+       mode: 0777
+
+    - name: Start Tomcat Services
+      shell: nohup "/opt/apache-tomcat-10.1.30/bin/startup.sh" # ./startup.sh
+        # args:
+        # chdir: /opt/apache-tomcat-8.5.61/bin 
+
+... 

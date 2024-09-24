@@ -1,0 +1,36 @@
+---
+- name: We will use when condition
+  hosts: all
+  become: true
+  tasks:
+    - name: Install if OS is Redhat
+      yum:
+         name: httpd
+         state: installed
+      when: ansible_os_family == "RedHat"
+
+    - name: Start a service
+      service:
+         name: httpd
+         state: started
+      when: ansible_os_family == "RedHat"
+
+    - name: Install if OS is Debian
+      apt:
+        name: apache2
+        state: installed
+      when: ansible_os_family == "Debian"
+
+    - name: Start a service
+      service:
+        name: apache2
+        state: started
+      when: ansible_os_family == "Debian"
+
+    - name: Copies a file
+      copy:
+       src: /home/ansadmin/index.html
+       dest: /var/www/html
+       mode: 0600
+...
+         

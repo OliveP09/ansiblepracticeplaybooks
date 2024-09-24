@@ -1,0 +1,17 @@
+---
+# tasks file for mynewroles
+
+- name: Installing httpd package
+  yum:
+    name: "{{package_name}}"
+    state: present
+  when: ansible_os_family == "RedHat"
+  notify: start httpd service
+
+- name: Copying Index File
+  copy:
+    src: index.html
+    dest: /var/www/html
+    mode: 0666
+
+...

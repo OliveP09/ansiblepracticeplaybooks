@@ -1,0 +1,7 @@
+---
+# vars file for mynewroles
+
+package_name: "httpd"
+
+...  
+

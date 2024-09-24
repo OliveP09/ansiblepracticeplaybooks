@@ -1,0 +1,7 @@
+---
+- name: This playbook creates a user.
+  hosts: webservers[0]
+  become: true
+  tasks:
+   - name: creating a user first
+     user: name=userwithansible

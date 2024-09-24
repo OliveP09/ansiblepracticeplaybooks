@@ -1,0 +1,16 @@
+---
+- name: Uninstall Multiple
+  hosts: all
+  become: true
+  tasks:
+  - name: Stop a service
+    service:
+      name: httpd
+      state: stopped
+  - name: Remove a service
+    yum: 
+      name: httpd*
+      state: absent
+
+...
+
